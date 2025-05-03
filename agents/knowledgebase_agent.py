@@ -25,10 +25,10 @@ def knowledgebase_agent(state):
             answer = "📘 For customer-related topics, please check internal policies or support portal."
     else:
         # 非客服问题，使用 LLM 回答（调用 summarize() 接 openai/qwen/deepseek）
-        print("非客服问题，使用 LLM 回答")
+        print("Not related with domain knowledge, using LLM own knowledge")
         prompt = f"You are a helpful AI assistant. Please answer the following question clearly:\n\nQ: {query}"
         try:
-            answer = summarize(prompt)["answer"]  # LLM 返回格式应为 {"answer": "..."}
+            answer = summarize(prompt, expect_json=False)["answer"]  # LLM 返回格式应为 {"answer": "..."}
         except:
             answer = "⚠️ Sorry, I couldn't generate a response. Please rephrase your question."
 
