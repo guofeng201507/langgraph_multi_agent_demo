@@ -1,0 +1,6 @@
+langgraph==0.4.1
+openai>=1.0.0
+dashscope  # for qwen
+# deepseek-openai  # hypothetical
+requests
+dotenv

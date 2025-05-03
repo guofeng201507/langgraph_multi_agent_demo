@@ -1,0 +1,53 @@
+import os
+from llm_router import summarize
+from dotenv import load_dotenv
+import json
+
+load_dotenv()
+
+
+def coordinator_agent(state):
+    user_input = state["user_input"]
+
+    system_prompt = """
+    You are the Coordinator Agent in a multi-agent customer service system. Your role is to analyze the user's input and determine the correct routing and orchestration strategy.
+    
+    Your process:
+    
+    1. Classify the user's input into one of the following categories:
+       - SPAM: Irrelevant, nonsensical, or abusive message.
+       - KNOWLEDGEBASE: Can be answered directly using company FAQs or documentation.
+       - MULTI_API: Requires data aggregation from 2 or more APIs.
+    
+    2. Take action based on the classification:
+       - If SPAM: Respond with "Your message doesn't seem related to customer service. Please clarify."
+       - If KNOWLEDGEBASE: Forward to the KnowledgebaseAgent.
+       - If MULTI_API: Identify relevant API agents (e.g., user_profile_agent, order_status_agent, billing_agent) and query them in parallel. Then summarize all results into a single coherent user-facing message.
+    
+    Respond with a valid JSON only, no explanation or commentary. Format:
+    {{
+      "intent": "SPAM|KNOWLEDGEBASE|MULTI_API",
+      "actions": ["agent1", "agent2"],
+      "query": "Cleaned or refined user query",
+      "final_response": "If SPAM, provide user-facing response here."
+    }}
+
+    """
+
+    prompt = f"{system_prompt}\n\nUser Input: {user_input}\n\n"
+
+    try:
+        result = summarize(prompt)
+        print("🧾 Raw LLM Output:", result)
+    except json.JSONDecodeError:
+        result = {
+            "intent": "SPAM",
+            "actions": [],
+            "query": "",
+            "final_response": "Sorry, I couldn't understand your request. Could you please rephrase it?"
+        }
+
+    return {
+        "coordinator_response": result
+    }
+
