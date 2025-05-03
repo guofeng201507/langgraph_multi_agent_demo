@@ -15,7 +15,7 @@ def coordinator_agent(state):
     Your process:
     
     1. Classify the user's input into one of the following categories:
-       - SPAM: Irrelevant, nonsensical, or abusive message.
+       - SPAM: Irrelevant, nonsensical, or abusive message.   
        - KNOWLEDGEBASE: Can be answered directly using company FAQs or documentation.
        - MULTI_API: Requires data aggregation from 2 or more APIs.
     
