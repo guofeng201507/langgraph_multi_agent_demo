@@ -1,19 +1,20 @@
 from graph_planner import graph
 from copy import deepcopy
 
-test_inputs = {
-    "SPAM": "asdfghjkl 12345 !!!",
-    "KNOWLEDGEBASE": "What are your business hours?",
-    "MULTI_API": "I think my billing info is outdated and my order hasn’t arrived."
-}
+test_inputs = [
+    # "asdfghjkl 12345 !!!", #SPAM
+    # "What are your business hours?", #"KNOWLEDGEBASE"
+    # "I think my billing info is outdated and my order hasn’t arrived.", #"MULTI_API"
+    "what is the current trending items in crypto market?" #"MULTI_API":
+]
 
 def print_section(title):
     print("\n" + "="*40)
     print(f"{title}")
     print("="*40)
 
-for label, user_input in test_inputs.items():
-    print_section(f"🧪 Testing Intent: {label}")
+for user_input in test_inputs:
+    # print_section(f"🧪 Testing Intent: {label}")
     state = {
         "user_input": user_input,
         "coordinator_response": {},

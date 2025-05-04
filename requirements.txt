@@ -4,3 +4,4 @@ dashscope  # for qwen
 # deepseek-openai  # hypothetical
 requests
 dotenv
+gradio

@@ -16,6 +16,9 @@ def planner_agent(state):
 
     query = state.get("coordinator_response", {}).get("query", user_input)
 
+    valid_agents = ["billing_agent", "order_status_agent", "user_profile_agent",
+                    "coingecko_trending_agent"]
+
     prompt = f"""
         You are an AI planner in a multi-agent system.
         
@@ -26,19 +29,11 @@ def planner_agent(state):
         
         You have already called the following agents (in order): {history}
         
-        Current agent outputs:
-        {context}
+        Current agent outputs: {context}
         
-        Based on the current state, decide the next best agent to call to fulfill the user's request.
+        Choose the next agent to call from: {valid_agents}
         
-        Valid agents:
-        - user_profile_agent
-        - billing_agent
-        - order_status_agent
-        
-        Avoid calling the same agent more than once unless necessary.
-        
-        If all required tasks are complete or all agents have been called, return "merge".
+        Avoid calling the same agent more than once. If all required info is gathered, return "merge".
         
         Respond with:
         {{
