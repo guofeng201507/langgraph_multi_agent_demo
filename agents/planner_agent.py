@@ -46,7 +46,7 @@ def planner_agent(state):
         }}
         """
 
-    print(f"Planner_agent lastest prompt → {prompt}")
+    # print(f"Planner_agent lastest prompt → {prompt}")
     try:
         result = summarize(prompt, expect_json=True)
         next_agent = result.get("next_agent", "merge")
