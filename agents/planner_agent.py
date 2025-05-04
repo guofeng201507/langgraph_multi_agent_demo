@@ -8,17 +8,21 @@ def planner_agent(state):
     - current outputs
     - previous agents called
     """
-
+    print("------Planner Agent is triggered---------")
     user_input = state.get("user_input", "")
     context = state.get("agent_outputs", {})
     history = state.get("agent_call_history", [])
+    chat = "\n".join(state.get("chat_history", [])[-3:])
 
     query = state.get("coordinator_response", {}).get("query", user_input)
 
     prompt = f"""
         You are an AI planner in a multi-agent system.
         
-        The user's request is: "{query}"
+        Here is the recent conversation:
+        {chat}
+        
+        user's request is: "{query}"
         
         You have already called the following agents (in order): {history}
         
@@ -42,6 +46,7 @@ def planner_agent(state):
         }}
         """
 
+    print(f"Planner_agent lastest prompt → {prompt}")
     try:
         result = summarize(prompt, expect_json=True)
         next_agent = result.get("next_agent", "merge")

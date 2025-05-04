@@ -23,6 +23,7 @@ def merge_lists(a: list, b: list) -> list:
 
 class GraphState(TypedDict):
     user_input: str
+    chat_history: Annotated[list[str], merge_lists]
     coordinator_response: dict
     agent_outputs: Annotated[dict, merge_dicts]
     agent_call_history: Annotated[list[str], merge_lists]

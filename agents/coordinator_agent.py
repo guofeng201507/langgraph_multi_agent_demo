@@ -8,6 +8,10 @@ load_dotenv()
 
 def coordinator_agent(state):
     user_input = state["user_input"]
+    chat_history = state.get("chat_history", [])
+    context = "\n".join(chat_history[-3:])  # 最多参考最近三轮对话
+
+    print("------coordinator_agent is triggered---------")
 
     system_prompt = """
     You are the Coordinator Agent in a multi-agent customer service system. Your role is to analyze the user's input and determine the correct routing and orchestration strategy.
@@ -34,7 +38,7 @@ def coordinator_agent(state):
 
     """
 
-    prompt = f"{system_prompt}\n\nUser Input: {user_input}\n\n"
+    prompt = f"{system_prompt}\n\nUse the chat history and current input to determine how to route the request.\n\nChat history:{context}\n\nCurrent Input: {user_input}\n\n"
 
     try:
         result = summarize(prompt)

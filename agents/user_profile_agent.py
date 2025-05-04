@@ -8,10 +8,8 @@ def user_profile_agent(state):
         "- Joined: August 12, 2021"
     )
 
-    # state["agent_outputs"] = state.get("agent_outputs", {})
-    # state["agent_outputs"]["user_profile_agent"] = response
-    # return state
-
-    outputs = state.get("agent_outputs", {})
-    outputs["user_profile_agent"] = "...response..."
-    return {"agent_outputs": outputs}
+    return {
+        "agent_outputs": {
+            "user_profile_agent": response
+        }
+    }
