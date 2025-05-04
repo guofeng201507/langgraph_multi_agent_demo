@@ -2,8 +2,6 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 
-import json
-
 load_dotenv()
 
 MODEL_PROVIDER = os.getenv("MODEL_PROVIDER", "openai")

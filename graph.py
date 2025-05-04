@@ -1,5 +1,8 @@
 from langgraph.graph import StateGraph
+"""
+This is simple SOP based multi-agent
 
+"""
 
 def merge_dicts(a: dict, b: dict) -> dict:
     return {**a, **b}
@@ -7,7 +10,7 @@ def merge_dicts(a: dict, b: dict) -> dict:
 
 from typing import TypedDict, Annotated
 from agents import (
-    coordinator,
+    coordinator_agent,
     knowledgebase_agent,
     billing_agent,
     order_status_agent,
@@ -34,7 +37,7 @@ AGENT_MAP = {
 builder = StateGraph(state_schema=GraphState)
 
 # 注册核心节点
-builder.add_node("coordinator", coordinator.coordinator_agent)
+builder.add_node("coordinator", coordinator_agent.coordinator_agent)
 builder.add_node("knowledgebase", knowledgebase_agent.knowledgebase_agent)
 builder.add_node("merge", merge_agent.merge_agent)
 
