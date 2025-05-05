@@ -2,10 +2,11 @@ from graph_planner import graph
 from copy import deepcopy
 
 test_inputs = [
-    "asdfghjkl 12345 !!!", #SPAM
-    "What are your business hours?", #"KNOWLEDGEBASE"
-    "I think my billing info is outdated and my order hasn’t arrived.", #"MULTI_API"
-    "what is the current trending items in crypto market?" #"MULTI_API":
+    # "asdfghjkl 12345 !!!", #SPAM
+    # "What are your business hours?", #"KNOWLEDGEBASE"
+    # "I think my billing info is outdated and my order hasn’t arrived.", #"MULTI_API"
+    # "what is the current trending items in crypto market?", #"MULTI_API":
+    "give me a list of most popular crypto exchanges"
 ]
 
 def print_section(title):

@@ -26,7 +26,8 @@ def coordinator_agent(state):
     2. Take action based on the classification:
        - If SPAM: Respond with "Your message doesn't seem related to customer service. Please clarify."
        - If KNOWLEDGEBASE: Forward to the KnowledgebaseAgent.
-       - If MULTI_API: Identify relevant API agents (e.g., user_profile_agent, order_status_agent, billing_agent, coingecko_trending_agent) and query them. Then summarize all results into a single coherent user-facing message.
+       - If MULTI_API: Identify relevant API agents 
+       (e.g., user_profile_agent, order_status_agent, billing_agent, exchange_list_agent, coingecko_trending_agent) and query them. Then summarize all results into a single coherent user-facing message.
     
     Respond with a valid JSON only, no explanation or commentary. Format:
     {{

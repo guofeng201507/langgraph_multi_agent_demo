@@ -95,7 +95,18 @@ Sample output:
 - Estimated Delivery: May 5, 2025
 ----------------------------------
 ```
+```
 
+langgraph_multi_agent_demo\mcp>uvicorn server:app --host 0.0.0.0 --port 8000 
+
+INFO:     Started server process [6072]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:64483 - "POST /mcp HTTP/1.1" 200 OK
+
+
+```
 ---
 
 ## 🧠 Future Improvements

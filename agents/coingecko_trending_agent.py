@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from llm_router import summarize
 
-load_dotenv()  # 加载 .env 文件
+load_dotenv()
 
 """
 This endpoint allows you query trending search coins, NFTs and categories on CoinGecko in the last 24 hours

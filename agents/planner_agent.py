@@ -17,7 +17,7 @@ def planner_agent(state):
     query = state.get("coordinator_response", {}).get("query", user_input)
 
     valid_agents = ["billing_agent", "order_status_agent", "user_profile_agent",
-                    "coingecko_trending_agent"]
+                    "coingecko_trending_agent", "exchange_list_agent"]
 
     prompt = f"""
         You are an AI planner in a multi-agent system.

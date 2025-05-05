@@ -9,7 +9,8 @@ from agents import (
     billing_agent,
     user_profile_agent,
     order_status_agent,
-    coingecko_trending_agent
+    coingecko_trending_agent,
+    exchange_list_agent
 )
 
 
@@ -44,6 +45,7 @@ builder.add_node("billing_agent", billing_agent.billing_agent)
 builder.add_node("user_profile_agent", user_profile_agent.user_profile_agent)
 builder.add_node("order_status_agent", order_status_agent.order_status_agent)
 builder.add_node("coingecko_trending_agent", coingecko_trending_agent.coingecko_trending_agent)
+builder.add_node("exchange_list_agent", exchange_list_agent.exchange_list_agent)
 
 # 入口：先执行 coordinator
 builder.set_entry_point("coordinator")
@@ -77,7 +79,8 @@ def planner_router(state: GraphState):
 builder.add_conditional_edges("planner", planner_router)
 
 # 每个 planner 控制的 agent 都回到 planner
-for agent_name in ["billing_agent", "user_profile_agent", "order_status_agent", "coingecko_trending_agent"]:
+for agent_name in ["billing_agent", "user_profile_agent", "order_status_agent", "coingecko_trending_agent",
+                   "exchange_list_agent"]:
     builder.add_edge(agent_name, "planner")
 
 # 终点
