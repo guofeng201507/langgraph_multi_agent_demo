@@ -15,7 +15,7 @@ from agents import (
     billing_agent,
     order_status_agent,
     user_profile_agent,
-    merge_agent,
+    merge_agent
 )
 
 

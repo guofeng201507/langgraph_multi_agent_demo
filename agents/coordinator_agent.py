@@ -42,7 +42,7 @@ def coordinator_agent(state):
 
     try:
         result = summarize(prompt)
-        print("🧾 Raw LLM Output:", result)
+        print("🧾 Coordinator Agent (LLM) Output:", result)
     except json.JSONDecodeError:
         result = {
             "intent": "SPAM",

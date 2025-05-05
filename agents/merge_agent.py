@@ -20,15 +20,20 @@ User's request: "{query}"
 Agent outputs:
 {merged_context}
 
-Please summarize all the relevant findings in a clear and concise reply to the user.
+Please summarize all the relevant findings in a clear and concise reply to the user in simple text format.
 
-Be short, helpful, and accurate. Respond as customer support would.
+Be short, helpful, and accurate. 
 
-Your reply:
+Respond with a valid JSON only, no explanation or commentary. Format:
+{{
+  "summary": "summarized content"
+}}
+
 """
 
     try:
-        user_facing_reply = summarize(prompt)
+        # user_facing_reply = summarize(prompt)
+        user_facing_reply = summarize(prompt).get("summary", "")
     except Exception:
         user_facing_reply = "Your request has been processed. Please check individual results above."
 
@@ -39,5 +44,8 @@ Your reply:
 
     return {
         **state,
-        "final_response": user_facing_reply
+        "coordinator_response": {
+            **state.get("coordinator_response", {}),
+            "final_response": user_facing_reply
+        }
     }

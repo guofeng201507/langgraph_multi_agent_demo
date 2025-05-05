@@ -1,6 +1,7 @@
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
+import json, re
 
 load_dotenv()
 
@@ -40,6 +41,21 @@ def summarize(prompt: str, expect_json: bool = True) -> dict:
             }
 
 
+def extract_json(content: str, expect_json: bool = True):
+    if expect_json:
+        try:
+            match = re.search(r"{.*}", content, re.DOTALL)
+            if match:
+                return json.loads(match.group())
+            else:
+                raise ValueError("No JSON found in LLM output.")
+        except Exception as e:
+            print("❌ JSON parse failed. Raw content:", content)
+            raise e
+    else:
+        return {"answer": content}
+
+
 # ========== OpenAI ==========
 def summarize_response_openai(prompt: str, expect_json: bool = True) -> dict:
     client = OpenAI(
@@ -61,31 +77,38 @@ def summarize_response_openai(prompt: str, expect_json: bool = True) -> dict:
         temperature=0.3
     )
 
-    # content = response.choices[0].message.content
-
+    model = os.getenv("OPENAI_MODEL", "gpt-4o")
+    print(f"LLM model used: {model}")
     content = response.choices[0].message.content.strip()
 
-    # 尝试提取 JSON 块
-    if expect_json:
-        import json, re
-        try:
-            match = re.search(r"{.*}", content, re.DOTALL)
-            if match:
-                return json.loads(match.group())
-            else:
-                raise ValueError("No JSON found in LLM output.")
-        except Exception as e:
-            print("❌ JSON parse failed. Raw content:", content)
-            raise e
-    else:
-        return {"answer": content}
-    # return json.loads(content)
+    return extract_json(content, expect_json)
 
 
 # ========== Qwen（阿里） ==========
-def summarize_response_qwen(prompt: str) -> dict:
-    # Replace with actual SDK/API call
-    raise NotImplementedError("Qwen support not implemented yet.")
+def summarize_response_qwen(prompt: str, expect_json: bool = True) -> dict:
+    client = OpenAI(
+        api_key=os.getenv("QWEN_API_KEY"),
+        base_url=os.getenv("QWEN_API_BASE", "https://dashscope.aliyuncs.com/compatible-mode/v1")
+    )
+
+    try:
+        response = client.chat.completions.create(
+            model="qwen-plus",  # Or use "qwen-max", "qwen-turbo", etc. based on your plan
+            messages=[
+                {"role": "system", "content": "You are a helpful customer service summarizer."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.1
+        )
+        content = response.choices[0].message.content.strip()
+
+        print(f"-------QWEN Summary------------- ")
+        print(content)
+        return extract_json(content, expect_json)
+
+    except Exception as e:
+        print(f"❌ Qwen summarization failed: {e}")
+        return {"summary": "Sorry, we couldn't summarize your request at this time."}
 
 
 # ========== DeepSeek ==========

@@ -43,7 +43,11 @@ def coingecko_trending_agent(state):
 
         Be short, helpful, and accurate. Respond as customer support would.
 
-        Your reply:
+        Respond with a valid JSON only, no explanation or commentary. Format:
+        {{
+          "summary": "summarized content"
+        }}
+        
         """
 
         try:
