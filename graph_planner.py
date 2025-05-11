@@ -87,3 +87,7 @@ for agent_name in ["billing_agent", "user_profile_agent", "order_status_agent", 
 builder.set_finish_point("merge")
 
 graph = builder.compile()
+
+#visualize graph
+# print(graph.get_graph().draw_mermaid())
+# copy output and paste here: https://mermaid.live/
