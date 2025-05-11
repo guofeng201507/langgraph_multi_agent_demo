@@ -7,3 +7,5 @@ dotenv
 gradio
 python-telegram-bot==20.8
 langsmith
+langchain_community
+grandalf==0.8
