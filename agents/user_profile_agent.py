@@ -1,6 +1,8 @@
 from mcp.client import call_mcp
+from langsmith import traceable
 
 
+@traceable(name="user_profile_agent")
 def user_profile_agent(state):
     # query = state.get("coordinator_response", {}).get("query", "")
     # response = (

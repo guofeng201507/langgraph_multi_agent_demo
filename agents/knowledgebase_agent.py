@@ -1,6 +1,8 @@
 from llm_router import summarize
+from langsmith import traceable
 
 
+@traceable(name="knowledgebase_agent")
 def knowledgebase_agent(state):
     """
     Hybrid knowledgebase agent:

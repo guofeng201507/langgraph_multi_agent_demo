@@ -5,7 +5,9 @@ import json
 
 load_dotenv()
 
+from langsmith import traceable
 
+@traceable(name="coordinator_agent")
 def coordinator_agent(state):
     user_input = state["user_input"]
     chat_history = state.get("chat_history", [])

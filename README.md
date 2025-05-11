@@ -116,6 +116,7 @@ INFO:     127.0.0.1:64483 - "POST /mcp HTTP/1.1" 200 OK
 - ✅ Add Gradio / Streamlit frontend
 - ✅ Deploy as a FastAPI or LangServe service
 - ✅ Add chat memory with LangGraph state
+- ✅ Add https://smith.langchain.com/
 
 ---
 

@@ -15,7 +15,9 @@ Top 5 trending categories (sorted by the most popular user searches)
 
 """
 
+from langsmith import traceable
 
+@traceable(name="coingecko_trending_agent")
 def coingecko_trending_agent(state):
     query = state.get("coordinator_response", {}).get("query", "")
 

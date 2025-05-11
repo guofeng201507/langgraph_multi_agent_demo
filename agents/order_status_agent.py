@@ -1,3 +1,7 @@
+from langsmith import traceable
+
+
+@traceable(name="order_status_agent")
 def order_status_agent(state):
     query = state.get("coordinator_response", {}).get("query", "")
 

@@ -1,6 +1,9 @@
 from llm_router import summarize
 
+from langsmith import traceable
 
+
+@traceable(name="merge_agent")
 def merge_agent(state):
     outputs = state.get("agent_outputs", {})
     query = state.get("coordinator_response", {}).get("query", "")

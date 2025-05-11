@@ -1,6 +1,8 @@
 from mcp.client import call_mcp
 
+from langsmith import traceable
 
+@traceable(name="exchange_list_agent")
 def exchange_list_agent(state):
     query = state.get("coordinator_response", {}).get("query", "")
 

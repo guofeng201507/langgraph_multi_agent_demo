@@ -1,6 +1,8 @@
 from llm_router import summarize
+from langsmith import traceable
 
 
+@traceable(name="planner_agent")
 def planner_agent(state):
     """
     The planner decides which agent to call next based on:

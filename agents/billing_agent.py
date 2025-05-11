@@ -1,6 +1,7 @@
 from llm_router import summarize
+from langsmith import traceable
 
-
+@traceable(name="billing_agent")
 def billing_agent(state):
     """
     Simulated billing agent that responds to billing-related queries.
