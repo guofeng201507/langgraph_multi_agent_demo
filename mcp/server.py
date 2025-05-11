@@ -15,6 +15,7 @@ async def mcp_endpoint(request: Request):
     task = data.get("task")
     input_data = data.get("input", {})
     user_id = input_data.get("user_id", "unknown")
+    query = input_data.get("query", "")
 
     # 🎯 模拟权限不足
     if input_data.get("simulate") == "forbidden":
@@ -95,6 +96,15 @@ async def mcp_endpoint(request: Request):
                 "- 2025-04-12: Updated mailing address"
             )
         }
+    elif task == "web_search":
+        url = f"https://api.duckduckgo.com/?q={query}&format=json"
+        try:
+            result = requests.get(url).json()
+            return {
+                "response": result.get("AbstractText") or "No concise summary found."
+            }
+        except Exception as e:
+            return {"response": f"Error during web search: {str(e)}"}
 
     # ❌ 未识别任务
     return {"response": f"❓ MCP: Task '{task}' not recognized."}

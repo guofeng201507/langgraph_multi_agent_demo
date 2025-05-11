@@ -17,9 +17,10 @@ def planner_agent(state):
     chat = "\n".join(state.get("chat_history", [])[-3:])
 
     query = state.get("coordinator_response", {}).get("query", user_input)
+    actions = state.get("coordinator_response", {}).get("actions", [])
 
     valid_agents = ["billing_agent", "order_status_agent", "user_profile_agent",
-                    "coingecko_trending_agent", "exchange_list_agent"]
+                    "coingecko_trending_agent", "exchange_list_agent", "web_search_agent"]
 
     prompt = f"""
         You are an AI planner in a multi-agent system.
@@ -31,11 +32,15 @@ def planner_agent(state):
         
         You have already called the following agents (in order): {history}
         
+        The coordinator has suggested calling these agents: {actions} 
+        
         Current agent outputs: {context}
         
-        Choose the next agent to call from: {valid_agents}
+        Choose the next agent to call from: {valid_agents} 
         
-        Avoid calling the same agent more than once. If all required info is gathered, return "merge".
+        - Prioritize agents suggested by the coordinator. 
+        - Avoid calling the same agent more than once. 
+        - If all required info is gathered, return "merge".
         
         Respond with:
         {{
