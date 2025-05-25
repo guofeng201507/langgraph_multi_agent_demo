@@ -8,3 +8,4 @@ gradio
 python-telegram-bot==20.8
 langsmith
 grandalf==0.8
+telethon==1.40.0

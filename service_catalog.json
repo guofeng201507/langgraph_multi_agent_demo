@@ -1,5 +1,5 @@
 {
-  "get_customer_info": {
+  "get_user_profile": {
     "description": "Get customer profile by user ID, including name, email, and tier.",
     "inputs": {
       "user_id": "string"
