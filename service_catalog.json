@@ -1,0 +1,51 @@
+{
+  "get_customer_info": {
+    "description": "Get customer profile by user ID, including name, email, and tier.",
+    "inputs": {
+      "user_id": "string"
+    },
+    "outputs": {
+      "name": "string",
+      "email": "string",
+      "tier": "string"
+    }
+  },
+  "get_order_status": {
+    "description": "Check status of a specific order by order ID.",
+    "inputs": {
+      "order_id": "string"
+    },
+    "outputs": {
+      "status": "string",
+      "estimated_delivery": "date"
+    }
+  },
+  "get_refund_policy": {
+    "description": "Retrieve the refund policy based on product ID.",
+    "inputs": {
+      "product_id": "string"
+    },
+    "outputs": {
+      "policy_text": "string"
+    }
+  },
+  "create_support_ticket": {
+    "description": "Create a new support ticket for a user issue.",
+    "inputs": {
+      "user_id": "string",
+      "subject": "string",
+      "message": "string"
+    },
+    "outputs": {
+      "ticket_id": "string",
+      "status": "string"
+    }
+  },
+  "get_crypto_trends": {
+    "description": "Fetch latest trending cryptocurrencies.",
+    "inputs": {},
+    "outputs": {
+      "trending": "array of {name, price, change_24h}"
+    }
+  }
+}
