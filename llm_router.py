@@ -2,6 +2,7 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 import json, re
+import requests
 
 load_dotenv()
 
@@ -22,6 +23,8 @@ def summarize(prompt: str, expect_json: bool = True) -> dict:
             return summarize_response_qwen(prompt, expect_json)
         elif MODEL_PROVIDER == "deepseek":
             return summarize_response_deepseek(prompt, expect_json)
+        elif MODEL_PROVIDER == "local":
+            return summarize_response_ollama(prompt, expect_json)
         else:
             raise ValueError(f"Unknown MODEL_PROVIDER: {MODEL_PROVIDER}")
     except Exception as e:
@@ -115,3 +118,31 @@ def summarize_response_qwen(prompt: str, expect_json: bool = True) -> dict:
 def summarize_response_deepseek(prompt: str) -> dict:
     # Replace with actual SDK/API call
     raise NotImplementedError("DeepSeek support not implemented yet.")
+
+
+def summarize_response_ollama(prompt: str, expect_json: bool = True) -> dict:
+    try:
+        response = requests.post(
+            "http://localhost:11434/api/chat",
+            json={
+                "model": "qwen3:8b",
+                "messages": [
+                    {"role": "system", "content": "You are a helpful customer service summarizer. /no_think"},
+                    {"role": "user", "content": prompt}
+                ],
+                "stream": False
+            },
+            timeout=30
+        )
+
+        response.raise_for_status()
+        content = response.json()["message"]["content"].strip()
+
+        print("-------QWEN (Local) Summary-------------")
+        print(content)
+
+        return extract_json(content, expect_json)
+
+    except Exception as e:
+        print(f"❌ Local Qwen summarization failed: {e}")
+        return {"summary": "Sorry, we couldn't summarize your request at this time."}
