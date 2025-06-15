@@ -125,11 +125,15 @@ def summarize_response_ollama(prompt: str, expect_json: bool = True) -> dict:
         response = requests.post(
             "http://localhost:11434/api/chat",
             json={
-                "model": "qwen3:8b",
+                # "model": "qwen3:8b",
+                "model": "qwen3:4b-q4_K_M",
                 "messages": [
                     {"role": "system", "content": "You are a helpful customer service summarizer. /no_think"},
                     {"role": "user", "content": prompt}
                 ],
+                "options": {
+                    "num_ctx": 32768
+                },
                 "stream": False
             },
             timeout=30
